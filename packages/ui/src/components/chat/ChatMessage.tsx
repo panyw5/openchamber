@@ -837,7 +837,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({
                     {isUser ? (
                         <FadeInOnReveal>
                             <div className="flex justify-end">
-                                <div className="max-w-[85%] rounded-xl rounded-br-xs bg-primary/10 dark:bg-primary/8 px-3.5 pt-2.5 pb-1.5">
+                                <div className="max-w-[85%] rounded-xl rounded-br-xs bg-[var(--gruvbox-user-bg)] text-[var(--gruvbox-user-text)] px-3.5 pt-2.5 pb-1">
                                     <MessageBody
                                         messageId={message.info.id}
                                         parts={visibleParts}

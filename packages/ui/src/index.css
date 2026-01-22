@@ -450,6 +450,20 @@ svg.animate-spin {
   --sidebar-border: oklch(0.31 0.01 35); /* #393836 */
   --sidebar-ring: oklch(0.77 0.17 85); /* #edb449 */
   --sidebar-stuck-bg: #1F1F1D; /* Desktop sidebar sticky header background */
+
+  /* Gruvbox Dark Soft - Markdown heading colors */
+  --markdown-heading1: var(--gruvbox-red);
+  --markdown-heading2: var(--gruvbox-green);
+  --markdown-heading3: var(--gruvbox-yellow);
+  --markdown-heading4: var(--gruvbox-blue);
+
+  /* Gruvbox Dark Soft - Markdown element colors */
+  --markdown-link: var(--gruvbox-orange);
+  --markdown-link-hover: var(--gruvbox-yellow);
+  --markdown-inline-code: var(--gruvbox-yellow);
+  --markdown-inline-code-bg: var(--gruvbox-dark-bg);
+  --markdown-blockquote: var(--gruvbox-purple);
+  --markdown-blockquote-border: var(--gruvbox-purple);
 }
 
 * {
@@ -572,6 +586,17 @@ body {
   --markdown-heading2: var(--markdown-heading2);
   --markdown-heading3: var(--markdown-heading3);
   --markdown-heading4: var(--markdown-heading4);
+
+  /* Gruvbox Dark Soft custom colors */
+  --gruvbox-user-bg: #6b8f66; /* 深绿色背景 (调深) */
+  --gruvbox-user-text: #f9f1cb; /* 浅黄色文字 */
+  --gruvbox-red: oklch(0.65 0.18 25); /* #fb4934 */
+  --gruvbox-green: oklch(0.73 0.15 140); /* #b8bb26 */
+  --gruvbox-yellow: oklch(0.82 0.15 85); /* #fabd2f */
+  --gruvbox-blue: oklch(0.67 0.12 230); /* #83a598 */
+  --gruvbox-orange: #fe8019; /* 橙色 - 用于链接 */
+  --gruvbox-dark-bg: #282828; /* 深灰色背景 - 用于代码块 */
+  --gruvbox-purple: #d3869b; /* 紫色 - 用于斜体和引用 */
   --markdown-link: var(--markdown-link);
   --markdown-link-hover: var(--markdown-link-hover);
   --markdown-list-marker: var(--markdown-list-marker);
@@ -1455,11 +1480,19 @@ html:not(.dark) .chat-scroll {
   margin-bottom: 0.5em;
 }
 
+.dark .streamdown-content h1 {
+  color: var(--gruvbox-red);
+}
+
 .streamdown-content h2 {
   font-size: 1.0625em;
   font-weight: 600;
   margin-top: 0.875em;
   margin-bottom: 0.375em;
+}
+
+.dark .streamdown-content h2 {
+  color: var(--gruvbox-green);
 }
 
 .streamdown-content h3 {
@@ -1469,6 +1502,10 @@ html:not(.dark) .chat-scroll {
   margin-bottom: 0.25em;
 }
 
+.dark .streamdown-content h3 {
+  color: var(--gruvbox-yellow);
+}
+
 .streamdown-content h4,
 .streamdown-content h5,
 .streamdown-content h6 {
@@ -1476,6 +1513,51 @@ html:not(.dark) .chat-scroll {
   font-weight: 600;
   margin-top: 0.625em;
   margin-bottom: 0.25em;
+}
+
+.dark .streamdown-content h4 {
+  color: var(--gruvbox-blue);
+}
+
+/* Gruvbox Dark Soft - Links (橙色) */
+.dark .streamdown-content a {
+  color: var(--gruvbox-orange);
+  text-decoration: underline;
+  text-decoration-color: rgba(254, 128, 25, 0.4);
+}
+
+.dark .streamdown-content a:hover {
+  color: var(--gruvbox-yellow);
+  text-decoration-color: rgba(250, 189, 47, 0.6);
+}
+
+/* Gruvbox Dark Soft - Inline code (黄色,深灰背景) */
+.dark .streamdown-content code:not([data-language]) {
+  color: var(--gruvbox-yellow);
+  background-color: var(--gruvbox-dark-bg);
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+}
+
+/* Gruvbox Dark Soft - Strong/Bold (绿色) */
+.dark .streamdown-content strong {
+  color: var(--gruvbox-green);
+  font-weight: 600;
+}
+
+/* Gruvbox Dark Soft - Em/Italic (紫色) */
+.dark .streamdown-content em {
+  color: var(--gruvbox-purple);
+  font-style: italic;
+}
+
+/* Gruvbox Dark Soft - Blockquote (紫色) */
+.dark .streamdown-content blockquote {
+  color: var(--gruvbox-purple);
+  border-left: 3px solid var(--gruvbox-purple);
+  padding-left: 1rem;
+  margin-left: 0;
+  opacity: 0.9;
 }
 
 /* Code font: IBM Plex Mono */
@@ -1493,7 +1575,7 @@ html:not(.dark) .chat-scroll {
 }
 
 .dark .streamdown-content [data-streamdown="code-block-body"] {
-  background-color: var(--shiki-dark-bg, var(--shiki-light-bg, transparent));
+  background-color: var(--gruvbox-dark-bg) !important;
   color: var(--shiki-dark, var(--shiki-light, inherit));
 }
 

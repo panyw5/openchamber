@@ -1085,7 +1085,7 @@ const ToolPart: React.FC<ToolPartProps> = ({ part, isExpanded, onToggle, syntaxT
                     </div>
                     <span
                         className="typography-meta font-medium"
-                        style={!isTaskTool && isError ? { color: 'var(--status-error)' } : {}}
+                        style={!isTaskTool && isError ? { color: 'var(--status-error)' } : { color: '#b8bb26' }}
                     >
                         {displayName}
                     </span>
@@ -1093,7 +1093,7 @@ const ToolPart: React.FC<ToolPartProps> = ({ part, isExpanded, onToggle, syntaxT
 
                 <div className="flex items-center gap-1 flex-1 min-w-0 typography-meta text-muted-foreground/70">
                     {description && (
-                        <span className={cn("truncate", isMobile && "max-w-[120px]")}>
+                        <span className={cn("truncate font-mono", isMobile && "max-w-[120px]")}>
                             {description}
                         </span>
                     )}

@@ -1,5 +1,10 @@
 import React from 'react';
 import { Streamdown } from 'streamdown';
+import type { PluggableList } from 'unified';
+import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import remarkCjkFriendly from 'remark-cjk-friendly';
+import remarkCjkFriendlyGfmStrikethrough from 'remark-cjk-friendly-gfm-strikethrough';
 import { FadeInOnReveal } from './message/FadeInOnReveal';
 import type { Part } from '@opencode-ai/sdk/v2';
 import { cn } from '@/lib/utils';
@@ -7,6 +12,15 @@ import { RiFileCopyLine, RiCheckLine, RiDownloadLine } from '@remixicon/react';
 
 import { flexokiStreamdownThemes } from '@/lib/shiki/flexokiThemes';
 import { isVSCodeRuntime } from '@/lib/desktop';
+
+const customRemarkPlugins: PluggableList = [
+  [remarkGfm, {}],
+  [remarkMath, { singleDollarTextMath: true }],
+  [remarkCjkFriendly, {}],
+  [remarkCjkFriendlyGfmStrikethrough, {}],
+];
+
+const streamdownRemarkPluginsProps = { remarkPlugins: customRemarkPlugins } as Record<string, unknown>;
 
 const withStableStringId = <T extends object>(value: T, id: string): T => {
   const existingPrimitive = (value as Record<symbol, unknown>)[Symbol.toPrimitive];
@@ -449,6 +463,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
         className={streamdownClassName}
         controls={{ code: false, table: false }}
         components={streamdownComponents}
+        {...streamdownRemarkPluginsProps}
       >
         {content}
       </Streamdown>
@@ -485,6 +500,7 @@ export const SimpleMarkdownRenderer: React.FC<{
         className={streamdownClassName}
         controls={{ code: false, table: false }}
         components={streamdownComponents}
+        {...streamdownRemarkPluginsProps}
       >
         {content}
       </Streamdown>

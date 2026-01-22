@@ -3,6 +3,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import type { Part } from '@opencode-ai/sdk/v2';
 import type { AgentMentionInfo } from '../types';
+import { SimpleMarkdownRenderer } from '../../MarkdownRenderer';
 
 type PartWithText = Part & { text?: string; content?: string; value?: string };
 
@@ -26,6 +27,17 @@ const UserTextPart: React.FC<UserTextPartProps> = ({ part, messageId, agentMenti
     const [isExpanded, setIsExpanded] = React.useState(false);
     const [isTruncated, setIsTruncated] = React.useState(false);
     const textRef = React.useRef<HTMLDivElement>(null);
+
+    const processedContent = React.useMemo(() => {
+        if (!agentMention?.token || !textContent.includes(agentMention.token)) {
+            return textContent;
+        }
+        const mentionUrl = buildMentionUrl(agentMention.name);
+        return textContent.replace(
+            agentMention.token,
+            `[${agentMention.token}](${mentionUrl})`
+        );
+    }, [textContent, agentMention]);
 
     React.useEffect(() => {
         const el = textRef.current;
@@ -53,35 +65,10 @@ const UserTextPart: React.FC<UserTextPartProps> = ({ part, messageId, agentMenti
         return null;
     }
 
-    // Render content with optional agent mention link
-    const renderContent = () => {
-        if (!agentMention?.token || !textContent.includes(agentMention.token)) {
-            return textContent;
-        }
-        const idx = textContent.indexOf(agentMention.token);
-        const before = textContent.slice(0, idx);
-        const after = textContent.slice(idx + agentMention.token.length);
-        return (
-            <>
-                {before}
-                <a
-                    href={buildMentionUrl(agentMention.name)}
-                    className="text-primary hover:underline"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                >
-                    {agentMention.token}
-                </a>
-                {after}
-            </>
-        );
-    };
-
     return (
         <div
             className={cn(
-                "break-words whitespace-pre-wrap font-sans typography-markdown",
+                "break-words font-sans",
                 !isExpanded && "line-clamp-3",
                 (isTruncated || isExpanded) && "cursor-pointer"
             )}
@@ -89,7 +76,7 @@ const UserTextPart: React.FC<UserTextPartProps> = ({ part, messageId, agentMenti
             onClick={handleClick}
             key={part.id || `${messageId}-user-text`}
         >
-            {renderContent()}
+            <SimpleMarkdownRenderer content={processedContent} className="user-message-markdown" />
         </div>
     );
 };
